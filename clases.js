@@ -2,11 +2,12 @@ class arbolBinario{
     constructor(){
         this.raiz=null;
     }
-    agregar(expresion){
-        for(let i = expresion.length-1;i<=0;i++){
-            if(expresion[i].cifra == "+" || expresion[i].cifra == "-"){
-                
-            }
+    agregar(nuevo){
+        if(this.raiz = null){
+            this.raiz = nuevo;
+        }
+        else{
+            
         }
     }
     _agregarRec(nuevo,nodox){
@@ -53,6 +54,8 @@ class Nodo{
         this.cifra = cifra;
         this.hijoi = null;
         this.hijod = null;
+        this.sig = null;
+        this.ant = null;
     }
 }
 //let expresion = [3,"*",9,"-",6,"*",3,"/",2,"+",3,"*",6,"+",5,"*",4,"/",2];
