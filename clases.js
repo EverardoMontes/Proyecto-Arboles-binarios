@@ -1,3 +1,4 @@
+// mi clase arbol funciona como lista y arbol, depende del método crea una u otra cosa
 class arbolBinario{
     constructor(){
         this.raiz=null;
@@ -17,7 +18,7 @@ class arbolBinario{
     }
     generarArbol(){
         let aux = this.primero;
-        while(aux.siguiente!==null){
+        while(aux!==null){
             if(aux.cifra==="*" || aux.cifra ==="/"){
                 aux.hijoi = aux.anterior;
                 aux.hijod = aux.siguiente
@@ -28,6 +29,19 @@ class arbolBinario{
             }
             aux = aux.siguiente;
         }
+        while(aux!==null){
+            if(aux.cifra==="+" || aux.cifra ==="-"){
+                aux.hijoi = aux.anterior;
+                aux.hijod = aux.siguiente
+                aux.siguiente = aux.hijod.siguiente;
+                aux.anterior = aux.hijoi.anterior;
+                aux.hijoi.anterior = null;
+                aux.hijod.siguiente = null;
+            }
+            aux = aux.siguiente;
+        }
+        this.raiz = this.primero;
+        this.primero = null;
     }
     preOrder(){
         if(this.raiz==null){
