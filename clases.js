@@ -94,7 +94,13 @@ class Nodo{
     }
 }
 //let expresion = [3,"*",9,"-",6,"*",3,"/",2,"+",3,"*",6,"+",5,"*",4,"/",2];
-let expresion = new Expresion();
+//hazlo eficiente perro;
+let expresion = new arbolBinario();
+let nodiños = "3*9-6*3/2+3*6+5*4/2";
+for(let i=0;i>=nodiños.length;i++){
+expresion.agregarLista(nodiños[i]);
+}
+/*
 let nodo = new Nodo(3);
 expresion.agregar(nodo);
  nodo = new Nodo("*");
@@ -133,4 +139,5 @@ expresion.agregar(nodo);
 expresion.agregar(nodo);
  nodo = new Nodo(2);
 expresion.agregar(nodo);
+*/
 console.log(expresion.primero);
