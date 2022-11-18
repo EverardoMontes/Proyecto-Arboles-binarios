@@ -16,32 +16,17 @@ class arbolBinario{
         }
     }
     generarArbol(){
-        if(this.raiz = null){
-            this.raiz = this.primero;
-        }
-        else{
-            let aux = this.primero;
-        }
-    }
-    _agregarRec(nuevo,nodox){
-        if(nuevo.numero == nodox.numero){
-            throw error;
-        }
-        if(nuevo.numero < nodox.numero){
-            if(!nodox.hijoizq){
-                nodox.hijoizq = nuevo;
+        let aux = this.primero;
+        while(aux.siguiente!==null){
+            if(aux.cifra==="*" || aux.cifra ==="/"){
+                aux.hijoi = aux.anterior;
+                aux.hijod = aux.siguiente
+                aux.siguiente = aux.hijod.siguiente;
+                aux.anterior = aux.hijoi.anterior;
+                aux.hijoi.anterior = null;
+                aux.hijod.siguiente = null;
             }
-            else{
-                this._agregarRec(nuevo,nodox.hijoizq);
-            }
-        }
-        else{
-            if(!nodox.hijoder){
-                nodox.hijoder = nuevo;
-            }
-            else{
-                this._agregarRec(nuevo,nodox.hijoder);
-            }
+            aux = aux.siguiente;
         }
     }
     preOrder(){
@@ -66,24 +51,6 @@ class arbolBinario{
     _postOrder(){
 
     }
-
-   /* inorder(){
-        if(this.raiz==null){
-            return "";
-        }
-        else{
-            return this._inOrder(this.raiz);
-        }
-    }
-    _inOrder(nodox){ // IRD
-        if(nodox.hijoizq!=null){
-            this._inOrder(nodox.hijoizq);   //I
-        }
-        console.log(nodox.numero);  // R
-        if(nodox.hijoder!=null){
-            this._inOrder(nodox.hijoder); //D
-        }
-    } */
 }
 
 class Expresion{
