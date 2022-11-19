@@ -15,8 +15,8 @@ class arbolBinario{
         this.ultimo = null;
         this.primeroPost = null;
         this.primeroPre = null;
-        this.listaAux = null;
-        this.listaAuxUlt = null;
+        this.primeroAux = null;
+        this.ultimoAux = null;
     }
     agregarExpresion(ecuacion){     //LISTO
         let nodo = new Nodo();
@@ -41,19 +41,19 @@ class arbolBinario{
             nuevo.anterior = this.ultimo;
             this.ultimo = nuevo;
         }
+        return;
     }
     agregarListaAuxiliar(nuevo){
-        if(this.listaAux==null){
-            nuevo.siguiente = null;
-            nuevo.anterior = null;
-            this.listaAux=nuevo;
-            this.listaAuxUlt=nuevo;
+        if(this.primeroAux==null){
+            this.primeroAux=nuevo;
+            this.ultimoAux=nuevo;
         }
-        if(this.listaAux!=null){
-            this.listaAuxUlt.siguiente = nuevo;
-            nuevo.anterior = this.listaAuxUlt;
-            this.listaAuxUlt = nuevo;
+        if(this.primeroAux!=null){
+            this.ultimoAux.siguiente = nuevo;
+            nuevo.anterior = this.ultimoAux;
+            this.ultimoAux = nuevo;
         }
+        return;
     }
     generarArbol(){
         let aux = this.primero;
@@ -71,11 +71,39 @@ class arbolBinario{
                     aux.anterior = aux.hijoi.anterior;
                     aux.hijoi.anterior = null;
                 }
+                if(aux.anterior == aux.hijoi || aux.anterior == aux.hijod){
+                    aux.anterior.siguiente = null;
+                    if(aux.anterior.anterior!=null){
+                        aux.anterior.anterior.siguiente = aux;
+                        temporal = aux.anterior.anterior;
+                    }
+                    else{
+                        temporal = null;
+                    }
+                    aux.anterior.anterior = null;
+                    aux.anterior = temporal;
+                }
             }
-            console.log(aux);
+            
             aux = aux.siguiente;
 
         }
+        let auxiliar = this.primero;
+        while(auxiliar!=null){
+            console.log("entré")
+            if(auxiliar.cifra=="*" || auxiliar.cifra =="/" || auxiliar.cifra =="+" || auxiliar.cifra =="-"){
+                console.log();
+            }
+            auxiliar = auxiliar.siguiente
+        }
+        console.log("nya");
+        console.log(this.primero);
+        if(Number(this.primero.cifra) == Number){
+            this.primero = this.primero.siguiente;
+            this.primero.anterior = null;
+        }
+        console.log(this.primero);
+       
         let aux2 = this.listaAux;
         while(aux2!=null){
             if(aux.cifra==="+" || aux.cifra ==="-"){
@@ -165,7 +193,6 @@ _inOrder(nodox){ // IRD
 */
 let expresion = new arbolBinario();
 expresion.agregarExpresion("3*9-6*3/2+3*6+5*4/2");
-console.log(expresion.listar(expresion.listaAux));
 console.log(expresion.generarArbol());
-console.log(expresion.inorder());
+
 
