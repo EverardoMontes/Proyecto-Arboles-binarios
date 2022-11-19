@@ -1,4 +1,13 @@
 // mi clase arbol funciona como lista y arbol, depende del método crea una u otra cosa
+class Nodo{
+    constructor(cifra){
+        this.cifra = cifra;
+        this.hijoi = null;
+        this.hijod = null;
+        this.siguiente = null;
+        this.anterior = null;
+    }
+}
 class arbolBinario{
     constructor(){
         this.raiz=null;
@@ -7,14 +16,17 @@ class arbolBinario{
         this.primeroPost = null;
         this.primeroPre = null;
     }
-    agregarExpresion(ecuacion){
+    agregarExpresion(ecuacion){     //LISTO
         let nodo = new Nodo();
-        for(let i=0;i>=ecuacion.length;i++){
+        let i=0;
+        let largo = Number(ecuacion.length);
+        while(i<largo){
             nodo = new Nodo(ecuacion[i]);
             this.agregarLista(nodo);
+            i++;
         }
     }
-    agregarLista(nuevo){
+    agregarLista(nuevo){            // LISTO
         if(this.primero==null){
             nuevo.siguiente = null;
             nuevo.anterior = null;
@@ -82,7 +94,7 @@ class arbolBinario{
     _postOrder(){
 
     }
-    listar(){
+    listar(){           //LISTO
         let res = "";
         let aux = this.primero;
         while(aux!=null){
@@ -103,67 +115,7 @@ _inOrder(nodox){ // IRD
                 }
             }
 */
-
-class Nodo{
-    constructor(cifra){
-        this.cifra = cifra;
-        this.hijoi = null;
-        this.hijod = null;
-        this.siguiente = null;
-        this.anterior = null;
-    }
-}
-//let expresion = [3,"*",9,"-",6,"*",3,"/",2,"+",3,"*",6,"+",5,"*",4,"/",2];
-//hazlo eficiente perro;
 let expresion = new arbolBinario();
 expresion.agregarExpresion("3*9-6*3/2+3*6+5*4/2");
 console.log(expresion.listar());
 
-/*
-nodo = new Nodo(ecuacion[0]);
-expresion.agregarLista(nodo);
-nodo = new Nodo(ecuacion[1]);
-expresion.agregarLista(nodo);
-nodo = new Nodo(ecuacion[2]);
-expresion.agregarLista(nodo);
-*/
-/*
-let nodo = new Nodo(3);
-expresion.agregar(nodo);
- nodo = new Nodo("*");
-expresion.agregar(nodo);
- nodo = new Nodo(9);
-expresion.agregar(nodo);
- nodo = new Nodo("-");
-expresion.agregar(nodo);
- nodo = new Nodo(6);
-expresion.agregar(nodo);
- nodo = new Nodo("*");
-expresion.agregar(nodo);
- nodo = new Nodo(3);
-expresion.agregar(nodo);
- nodo = new Nodo("/");
-expresion.agregar(nodo);
- nodo = new Nodo(2);
-expresion.agregar(nodo);
- nodo = new Nodo("+");
-expresion.agregar(nodo);
- nodo = new Nodo(3);
-expresion.agregar(nodo);
- nodo = new Nodo("*");
-expresion.agregar(nodo);
- nodo = new Nodo(6);
-expresion.agregar(nodo);
- nodo = new Nodo("+");
-expresion.agregar(nodo);
- nodo = new Nodo(5);
-expresion.agregar(nodo);
- nodo = new Nodo("*");
-expresion.agregar(nodo);
- nodo = new Nodo(4);
-expresion.agregar(nodo);
- nodo = new Nodo("/");
-expresion.agregar(nodo);
- nodo = new Nodo(2);
-expresion.agregar(nodo);
-*/
