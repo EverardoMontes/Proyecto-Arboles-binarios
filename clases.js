@@ -7,12 +7,21 @@ class arbolBinario{
         this.primeroPost = null;
         this.primeroPre = null;
     }
+    agregarExpresion(ecuacion){
+        let nodo = new Nodo();
+        for(let i=0;i>=ecuacion.length;i++){
+            nodo = new Nodo(ecuacion[i]);
+            this.agregarLista(nodo);
+        }
+    }
     agregarLista(nuevo){
         if(this.primero==null){
+            nuevo.siguiente = null;
+            nuevo.anterior = null;
             this.primero=nuevo;
             this.ultimo=nuevo;
         }
-        else{
+        if(this.primero!=null){
             this.ultimo.siguiente = nuevo;
             nuevo.anterior = this.ultimo;
             this.ultimo = nuevo;
@@ -73,6 +82,15 @@ class arbolBinario{
     _postOrder(){
 
     }
+    listar(){
+        let res = "";
+        let aux = this.primero;
+        while(aux!=null){
+            res += aux.cifra + " " ;
+            aux = aux.siguiente;
+        }
+        return res;
+    }
 }
 /*
 _inOrder(nodox){ // IRD
@@ -98,11 +116,17 @@ class Nodo{
 //let expresion = [3,"*",9,"-",6,"*",3,"/",2,"+",3,"*",6,"+",5,"*",4,"/",2];
 //hazlo eficiente perro;
 let expresion = new arbolBinario();
-let nodiños = "3*9-6*3/2+3*6+5*4/2";
-for(let i=0;i>=nodiños.length;i++){
-    expresion.agregarLista(nodiños[i]);
-}
-console.log(nodiños[1]);
+expresion.agregarExpresion("3*9-6*3/2+3*6+5*4/2");
+console.log(expresion.listar());
+
+/*
+nodo = new Nodo(ecuacion[0]);
+expresion.agregarLista(nodo);
+nodo = new Nodo(ecuacion[1]);
+expresion.agregarLista(nodo);
+nodo = new Nodo(ecuacion[2]);
+expresion.agregarLista(nodo);
+*/
 /*
 let nodo = new Nodo(3);
 expresion.agregar(nodo);
