@@ -43,7 +43,7 @@ class arbolBinario{
         }
         return;
     }
-    agregarListaAuxiliar(nuevo){
+    _agregarListaAuxiliar(nuevo){
         if(this.primeroAux==null){
             this.primeroAux=nuevo;
             this.ultimoAux=nuevo;
@@ -56,75 +56,55 @@ class arbolBinario{
         return;
     }
     generarArbol(){
+        
         let aux = this.primero;
-        let temporal;
         while(aux!=null){
-            if(aux.cifra=="*" || aux.cifra =="/"){
+            if(aux.cifra==="*" || aux.cifra ==="/"){
+                if(aux.anterior != null){
+                    if(aux.anterior.anterior.cifra==="*" || aux.anterior.anterior.cifra==="/"){
+                        aux.anterior = aux.anterior.anterior;
+                    }
+                }
                 aux.hijoi = aux.anterior;
                 aux.hijod = aux.siguiente
                 aux.siguiente = aux.siguiente.siguiente;
                 aux.anterior = aux.anterior.anterior;
                 aux.hijod.siguiente = null;
                 aux.hijoi.anterior = null;
-                if(aux.anterior.cifra === "*" || aux.anterior.cifra === "/"){
-                    aux.hijoi = aux.anterior;
-                    aux.anterior = aux.hijoi.anterior;
-                    aux.hijoi.anterior = null;
-                }
-                if(aux.anterior == aux.hijoi || aux.anterior == aux.hijod){
-                    aux.anterior.siguiente = null;
-                    if(aux.anterior.anterior!=null){
-                        aux.anterior.anterior.siguiente = aux;
-                        temporal = aux.anterior.anterior;
-                    }
-                    else{
-                        temporal = null;
-                    }
-                    aux.anterior.anterior = null;
-                    aux.anterior = temporal;
-                }
             }
-            
-            aux = aux.siguiente;
+            if(aux.hijoi == this.primero){
+                this.primero = aux;
+                this.primero.anterior = null;
+            }
+            /*if(aux.siguiente.cifra==="+" || aux.siguiente.cifra ==="-"){
 
+            }*/
+            aux = aux.siguiente;
         }
-        let auxiliar = this.primero;
-        while(auxiliar!=null){
-            console.log("entré")
-            if(auxiliar.cifra=="*" || auxiliar.cifra =="/" || auxiliar.cifra =="+" || auxiliar.cifra =="-"){
-                console.log();
-            }
-            auxiliar = auxiliar.siguiente
-        }
-        console.log("nya");
-        console.log(this.primero);
-        if(Number(this.primero.cifra) == Number){
-            this.primero = this.primero.siguiente;
-            this.primero.anterior = null;
-        }
-        console.log(this.primero);
-       
-        let aux2 = this.listaAux;
-        while(aux2!=null){
-            if(aux.cifra==="+" || aux.cifra ==="-"){
-                aux.hijoi = aux.anterior;
-                aux.hijod = aux.siguiente
-                aux.siguiente = aux.hijod.siguiente;
-                aux.anterior = aux.hijoi.anterior;
-                aux.hijod.siguiente = null;
-                aux.hijoi.anterior = null;
-                if(aux.anterior.cifra === "+" || aux.anterior.cifra === "-"){
-                    aux.hijoi = aux.anterior;
-                    aux.anterior = aux.hijoi.anterior;
-                    aux.hijoi.anterior = null;
+        aux = this.primero;
+        while(aux!= null){
+            if(aux.anterior !=null){
+                if(aux.hijoi == null && aux.hijod == null){
+                    if(aux.cifra == "-" || aux.cifra == "+" ||aux.cifra == "*" || aux.cifra == "/" ){
+                        aux.siguiente = aux.siguiente.siguiente;
+                        aux.anterior = aux.anterior.anterior;
+                    }
+                    console.log("entré")
                 }
             }
             aux = aux.siguiente;
         }
-        this.raiz = aux;
-        this.primero = null;
-        return this.raiz;
-    }
+        
+        aux = this.primero;
+        let res= ""
+        while(aux!=null){
+            res += aux.cifra + " "
+            aux = aux.siguiente
+        }
+        console.log(res);
+        console.log(this.primero);
+    
+}
     preOrder(){
         if(this.raiz==null){
             return "";
@@ -179,7 +159,17 @@ class arbolBinario{
             this._inOrder(nodox.hijoder); //D
         }
     }
+    listar(){
+        let res=""
+        let aux = this.primero;
+        while(aux!=null){
+            res += aux.cifra + "";
+            aux = aux.siguiente
+        }
+        return res;
+    }
 }
+
 /*
 _inOrder(nodox){ // IRD
                 if(nodox.hijoizq!=null){
@@ -193,6 +183,7 @@ _inOrder(nodox){ // IRD
 */
 let expresion = new arbolBinario();
 expresion.agregarExpresion("3*9-6*3/2+3*6+5*4/2");
+console.log( "Listar expresion convertida a lista doble: "+expresion.listar());
 console.log(expresion.generarArbol());
 
 
