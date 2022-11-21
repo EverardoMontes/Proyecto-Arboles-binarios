@@ -65,10 +65,11 @@ class arbolBinario{
                         aux.anterior = aux.anterior.anterior;
                     }
                 }
+                
                 aux.hijoi = aux.anterior;
                 aux.hijod = aux.siguiente
-                aux.siguiente = aux.siguiente.siguiente;
                 aux.anterior = aux.anterior.anterior;
+                aux.siguiente = aux.siguiente.siguiente;
                 aux.hijod.siguiente = null;
                 aux.hijoi.anterior = null;
             }
@@ -79,6 +80,9 @@ class arbolBinario{
             /*if(aux.siguiente.cifra==="+" || aux.siguiente.cifra ==="-"){
 
             }*/
+            if(aux.siguiente == null){
+                this.ultimo = aux;
+            }
             aux = aux.siguiente;
         }
         aux = this.primero;
@@ -89,19 +93,41 @@ class arbolBinario{
                         aux.siguiente = aux.siguiente.siguiente;
                         aux.anterior = aux.anterior.anterior;
                     }
-                    console.log("entré")
                 }
             }
             aux = aux.siguiente;
         }
-        
         aux = this.primero;
-        let res= ""
+        let res= "";
+        aux= this.primero;
         while(aux!=null){
-            res += aux.cifra + " "
-            aux = aux.siguiente
+            if(aux.siguiente != null){
+                res += ""+  aux.cifra + " siguiente ";
+            }
+            else{
+                res += " "+  aux.cifra; 
+            }
+            aux = aux.siguiente;
+        }
+        aux= this.ultimo;
+        let ser= "";
+        while(aux!=null){
+            if(aux.anterior != null){
+                res += ""+  aux.cifra + " anterior ";
+            }
+            else{
+                res += " "+  aux.cifra; 
+            }
+            aux = aux.anterior;
+        }
+        aux = this.primero;
+        let pes= ""
+        while(aux!=null){
+            pes += aux.cifra + " " ;
+            aux = aux.siguiente;
         }
         console.log(res);
+        console.log(pes);
         console.log(this.primero);
     
 }
