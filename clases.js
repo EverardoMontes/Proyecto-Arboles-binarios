@@ -65,13 +65,17 @@ class arbolBinario{
                         aux.anterior = aux.anterior.anterior;
                     }
                 }
+                if(aux.siguiente!=null){
+                    if(aux.siguiente.cifra==="*" || aux.siguiente.cifra==="/"){
+                        aux.siguiente = aux.siguiente.anterior;
+                    }
+                }
                 
                 aux.hijoi = aux.anterior;
                 aux.hijod = aux.siguiente
                 aux.anterior = aux.anterior.anterior;
                 aux.siguiente = aux.siguiente.siguiente;
-                aux.hijod.siguiente = null;
-                aux.hijoi.anterior = null;
+                
             }
             if(aux.hijoi == this.primero){
                 this.primero = aux;
@@ -90,43 +94,90 @@ class arbolBinario{
             if(aux.anterior !=null){
                 if(aux.hijoi == null && aux.hijod == null){
                     if(aux.cifra == "-" || aux.cifra == "+" ||aux.cifra == "*" || aux.cifra == "/" ){
-                        aux.siguiente = aux.siguiente.siguiente;
                         aux.anterior = aux.anterior.anterior;
+                        aux.siguiente = aux.siguiente.siguiente;
                     }
                 }
             }
             aux = aux.siguiente;
         }
         aux = this.primero;
-        let res= "";
-        aux= this.primero;
         while(aux!=null){
             if(aux.siguiente != null){
-                res += ""+  aux.cifra + " siguiente ";
-            }
-            else{
-                res += " "+  aux.cifra; 
+                if(aux.siguiente.siguiente != null){
+                    if((aux.siguiente.cifra==="*" && aux.siguiente.siguiente.cifra==="/") || (aux.siguiente.cifra==="*" && aux.siguiente.siguiente.cifra==="*")|| (aux.siguiente.cifra==="/" && aux.siguiente.siguiente.cifra==="/")|| (aux.siguiente.cifra==="/" && aux.siguiente.siguiente.cifra==="*")){
+                        aux.siguiente = aux.siguiente.siguiente;
+                    }
+                }
             }
             aux = aux.siguiente;
         }
-        aux= this.ultimo;
-        let ser= "";
+        // AQUI INICIA LA PARTE IGUAL A ARRIBA PERO DE SUMAS Y RESTAS
+        aux = this.primero;
         while(aux!=null){
-            if(aux.anterior != null){
-                res += ""+  aux.cifra + " anterior ";
+            if(aux.cifra==="+" || aux.cifra ==="-"){
+                if(aux.anterior != null){
+                    if(aux.anterior.anterior!=null){
+                        if(aux.anterior.anterior.cifra==="+" || aux.anterior.anterior.cifra==="-"){
+                            aux.anterior = aux.anterior.anterior;
+                        }
+                    }
+                }
+                if(aux.siguiente!=null){
+                    if(aux.siguiente.cifra==="+" || aux.siguiente.cifra==="-"){
+                        aux.siguiente = aux.siguiente.anterior;
+                    }
+                }
+                
+                aux.hijoi = aux.anterior;
+                aux.hijod = aux.siguiente
+                aux.anterior = aux.anterior.anterior;
+                aux.siguiente = aux.siguiente.siguiente;
+                
             }
-            else{
-                res += " "+  aux.cifra; 
+            if(aux.hijoi == this.primero){
+                this.primero = aux;
+                this.primero.anterior = null;
             }
-            aux = aux.anterior;
+            /*if(aux.siguiente.cifra==="+" || aux.siguiente.cifra ==="-"){
+
+            }*/
+            if(aux.siguiente == null){
+                this.ultimo = aux;
+            }
+            aux = aux.siguiente;
         }
+        aux = this.primero;
+        while(aux!= null){
+            if(aux.anterior !=null){
+                if(aux.hijoi == null && aux.hijod == null){
+                    if(aux.cifra == "-" || aux.cifra == "+" ||aux.cifra == "*" || aux.cifra == "/" ){
+                        aux.anterior = aux.anterior.anterior;
+                        aux.siguiente = aux.siguiente.siguiente;
+                    }
+                }
+            }
+            aux = aux.siguiente;
+        }
+        aux = this.primero;
+        while(aux!=null){
+            if(aux.siguiente != null){
+                if(aux.siguiente.siguiente != null){
+                    if((aux.siguiente.cifra==="+" && aux.siguiente.siguiente.cifra==="-") || (aux.siguiente.cifra==="+" && aux.siguiente.siguiente.cifra==="+")|| (aux.siguiente.cifra==="-" && aux.siguiente.siguiente.cifra==="-")|| (aux.siguiente.cifra==="-" && aux.siguiente.siguiente.cifra==="+")){
+                        aux.siguiente = aux.siguiente.siguiente;
+                    }
+                }
+            }
+            aux = aux.siguiente;
+        }
+        
         aux = this.primero;
         let pes= ""
         while(aux!=null){
             pes += aux.cifra + " " ;
             aux = aux.siguiente;
         }
-        console.log(res);
+        
         console.log(pes);
         console.log(this.primero);
     
