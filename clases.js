@@ -17,6 +17,8 @@ class arbolBinario{
         this.primeroPre = null;
         this.primeroAux = null;
         this.ultimoAux = null;
+        this.raizPre = null;
+        this.raizPost = null;
     }
     agregarExpresion(ecuacion){     //LISTO
         let nodo = new Nodo();
@@ -177,38 +179,52 @@ class arbolBinario{
             pes += aux.cifra + " " ;
             aux = aux.siguiente;
         }
-        
-        console.log(pes);
-        console.log(this.primero);
+        this.raiz = this.primero;
+        return this.raiz;
     
 }
+    listarPreOrder(){
+        let res;
+        res += this.preOrder();
+        return res;
+    }
     preOrder(){
-        if(this.raiz==null){
+        this.raizPre = this.raiz;
+        if(this.raizPre==null){
             return "";
         }
         else{
-            return this._preOrder(this.raiz);
+            return this._preOrder(this.raizPre);
         }
     }
     _preOrder(nodox){ // RID
-        console.log(nodox.cifra) //R
+        console.log(nodox.cifra)        //R
         if(nodox.hijoi!=null){
             this._preOrder(nodox.hijoi);    //I
         }
         if(nodox.hijod!=null){
-            this._preOrder(nodox.hijod);
+            this._preOrder(nodox.hijod);    //D
         }
+        return;
     }
     postOrder(){
-        if(this.raiz==null){
+        this.raizPost = this.raiz;
+        if(this.raizPost==null){
             return "";
         }
         else{
-            return this._postOrder(this.raiz);
+            return this._postOrder(this.raizPost);
         }
     }
-    _postOrder(){
-
+    _postOrder(nodox){
+        if(nodox.hijoi!=null){
+            this._postOrder(nodox.hijoi);    //I
+        }
+        if(nodox.hijod!=null){
+            this._postOrder(nodox.hijod);    //D
+        }
+        console.log(nodox.cifra)        //R
+        return;
     }
     listar(lista){           //LISTO
         let res = "";
@@ -262,5 +278,9 @@ let expresion = new arbolBinario();
 expresion.agregarExpresion("3*9-6*3/2+3*6+5*4/2");
 console.log( "Listar expresion convertida a lista doble: "+expresion.listar());
 console.log(expresion.generarArbol());
+console.log("PreOrder: ");
+console.log(expresion.preOrder());
+console.log("PostOrder: ")
+console.log(expresion.postOrder());
 
 
