@@ -19,6 +19,10 @@ class arbolBinario{
         this.ultimoAux = null;
         this.raizPre = null;
         this.raizPost = null;
+        this.preOrderArray = [];
+        this.preOrderArrayAuxiliar=[];
+        this.postOrderArray = [];
+        this.postOrderArrayAuxiliar=[];
     }
     agregarExpresion(ecuacion){     //LISTO
         let nodo = new Nodo();
@@ -199,6 +203,7 @@ class arbolBinario{
     }
     _preOrder(nodox){ // RID
         console.log(nodox.cifra)        //R
+        this.preOrderArray.push(nodox.cifra);
         if(nodox.hijoi!=null){
             this._preOrder(nodox.hijoi);    //I
         }
@@ -224,6 +229,7 @@ class arbolBinario{
             this._postOrder(nodox.hijod);    //D
         }
         console.log(nodox.cifra)        //R
+        this.postOrderArray.push(nodox.cifra);
         return;
     }
     listar(lista){           //LISTO
@@ -247,10 +253,46 @@ class arbolBinario{
         if(nodox.hijoizq!=null){
             this._inOrder(nodox.hijoizq);   //I
         }
-        console.log(nodox.numero);  // R
+        console.log(nodox.cifra);  // R
         if(nodox.hijoder!=null){
             this._inOrder(nodox.hijoder); //D
         }
+        return
+    }
+    resolverPreOrder(){
+        this.preOrderArray;
+        this.preOrderArrayAuxiliar;
+        if(this.preOrderArray==null){
+            return "";
+        }
+        else{
+            this.preOrderArrayAuxiliar = null;
+            for(let i= this.preOrderArray.length;i>=0;i--){
+                if(this.preOrderArrayAuxiliar[i].match(/^[0-9]+$/)){
+                    this.preOrderArray[i].push(this.preOrderArrayAuxiliar);
+                }
+                else{
+                    if(this.preOrderArray[i]==="*"){
+                        
+                    }
+                    if(this.preOrderArray[i]==="/"){
+
+                    }
+                    if(this.preOrderArray[i]==="+"){
+
+                    }
+                    if(this.preOrderArray[i]==="-"){
+
+                    }
+                }
+                this.preOrderArray.pop();
+            }
+        }
+    }
+    resolverPostOrder(){
+        this.postOrderArray;
+        this.postOrderArrayAuxiliar
+        
     }
     listar(){
         let res=""
@@ -282,5 +324,7 @@ console.log("PreOrder: ");
 console.log(expresion.preOrder());
 console.log("PostOrder: ")
 console.log(expresion.postOrder());
+console.log(expresion.preOrderArray);
+console.log(expresion.postOrderArray);
 
 
