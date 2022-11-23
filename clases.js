@@ -202,7 +202,7 @@ class arbolBinario{
         }
     }
     _preOrder(nodox){ // RID
-        console.log(nodox.cifra)        //R
+        //console.log(nodox.cifra)        //R
         this.preOrderArray.push(nodox.cifra);
         if(nodox.hijoi!=null){
             this._preOrder(nodox.hijoi);    //I
@@ -228,7 +228,7 @@ class arbolBinario{
         if(nodox.hijod!=null){
             this._postOrder(nodox.hijod);    //D
         }
-        console.log(nodox.cifra)        //R
+        //console.log(nodox.cifra)        //R
         this.postOrderArray.push(nodox.cifra);
         return;
     }
@@ -262,31 +262,37 @@ class arbolBinario{
     resolverPreOrder(){
         this.preOrderArray;
         this.preOrderArrayAuxiliar;
+        let resultado = 0;
+        let operandoDerecho = 0;
+        let operandoIzquierdo = 0;
+        let limite = /^[0-9]+$/;
         if(this.preOrderArray==null){
             return "";
         }
         else{
             this.preOrderArrayAuxiliar = null;
             for(let i= this.preOrderArray.length;i>=0;i--){
-                if(this.preOrderArrayAuxiliar[i].match(/^[0-9]+$/)){
-                    this.preOrderArray[i].push(this.preOrderArrayAuxiliar);
+                if(this.preOrderArrayAuxiliar[i].match(limite)){
+                    this.preOrderArrayAuxiliar[i].push(this.preOrderArray.pop());
                 }
                 else{
+                    operandoIzquierdo += this.preOrderArrayAuxiliar.pop();
+                    operandoDerecho += this.preOrderArrayAuxiliar.pop();
                     if(this.preOrderArray[i]==="*"){
-                        
+                        resultado = Number(operandoIzquierdo) * Number(operandoDerecho);
                     }
                     if(this.preOrderArray[i]==="/"){
-
+                        resultado = Number(operandoIzquierdo) / Number(operandoDerecho);
                     }
                     if(this.preOrderArray[i]==="+"){
-
+                        resultado = Number(operandoIzquierdo) + Number(operandoDerecho);
                     }
                     if(this.preOrderArray[i]==="-"){
-
+                        resultado = Number(operandoIzquierdo) - Number(operandoDerecho);
                     }
                 }
-                this.preOrderArray.pop();
             }
+            return resultado;
         }
     }
     resolverPostOrder(){
@@ -319,12 +325,15 @@ _inOrder(nodox){ // IRD
 let expresion = new arbolBinario();
 expresion.agregarExpresion("3*9-6*3/2+3*6+5*4/2");
 console.log( "Listar expresion convertida a lista doble: "+expresion.listar());
+console.log("Nodo Raiz del árbol binario: ");
 console.log(expresion.generarArbol());
 console.log("PreOrder: ");
-console.log(expresion.preOrder());
-console.log("PostOrder: ")
-console.log(expresion.postOrder());
+expresion.preOrder();
 console.log(expresion.preOrderArray);
+
+console.log("PostOrder: ")
+expresion.postOrder();
 console.log(expresion.postOrderArray);
+
 
 
