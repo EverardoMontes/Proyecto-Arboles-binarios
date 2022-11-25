@@ -20,9 +20,7 @@ class arbolBinario{
         this.raizPre = null;
         this.raizPost = null;
         this.preOrderArray = [];
-        this.preOrderArrayAuxiliar=[];
         this.postOrderArray = [];
-        this.postOrderArrayAuxiliar=[];
     }
     agregarExpresion(ecuacion){     //LISTO
         let nodo = new Nodo();
@@ -260,38 +258,57 @@ class arbolBinario{
         return
     }
     resolverPreOrder(){
-        this.preOrderArray;
-        this.preOrderArrayAuxiliar;
         let resultado = 0;
-        let operandoDerecho = 0;
-        let operandoIzquierdo = 0;
+        let operandoDerecho = "";
+        let operandoIzquierdo = "";
+        let operador = "";
         let limite = /^[0-9]+$/;
+        let auxiliar = [];
         if(this.preOrderArray==null){
             return "";
         }
         else{
             this.preOrderArrayAuxiliar = null;
-            for(let i= this.preOrderArray.length;i>=0;i--){
-                if(this.preOrderArrayAuxiliar[i].match(limite)){
-                    this.preOrderArrayAuxiliar[i].push(this.preOrderArray.pop());
+            for(let i= this.preOrderArray.length-1;i>=0;i--){
+                if(this.preOrderArray[i].match(limite)){
+                    auxiliar.push(this.preOrderArray.pop())
+                    console.log("Array auxiliar: "+auxiliar);
+                    
+                    
                 }
                 else{
-                    operandoIzquierdo += this.preOrderArrayAuxiliar.pop();
-                    operandoDerecho += this.preOrderArrayAuxiliar.pop();
-                    if(this.preOrderArray[i]==="*"){
+                    
+                    operandoIzquierdo = auxiliar.pop();
+                    console.log(operandoIzquierdo);
+                    operador = this.preOrderArray[i];
+                    console.log(operador);
+                    this.preOrderArray.pop()
+                    operandoDerecho = auxiliar.pop();
+                    console.log(operandoDerecho);
+                    if(operador==="*"){
                         resultado = Number(operandoIzquierdo) * Number(operandoDerecho);
+                        console.log(resultado);
+                        auxiliar.push(resultado);
                     }
-                    if(this.preOrderArray[i]==="/"){
+                    if(operador==="/"){
                         resultado = Number(operandoIzquierdo) / Number(operandoDerecho);
+                        console.log(resultado);
+                        auxiliar.push(resultado);
                     }
-                    if(this.preOrderArray[i]==="+"){
+                    if(operador==="+"){
                         resultado = Number(operandoIzquierdo) + Number(operandoDerecho);
+                        console.log(resultado);
+                        auxiliar.push(resultado);
                     }
-                    if(this.preOrderArray[i]==="-"){
+                    if(operador==="-"){
                         resultado = Number(operandoIzquierdo) - Number(operandoDerecho);
+                        console.log(resultado);
+                        auxiliar.push(resultado);
                     }
+                    
                 }
             }
+            console.log(resultado);
             return resultado;
         }
     }
@@ -330,6 +347,7 @@ console.log(expresion.generarArbol());
 console.log("PreOrder: ");
 expresion.preOrder();
 console.log(expresion.preOrderArray);
+console.log(expresion.resolverPreOrder());
 
 console.log("PostOrder: ")
 expresion.postOrder();
