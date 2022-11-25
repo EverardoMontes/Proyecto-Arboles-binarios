@@ -268,55 +268,98 @@ class arbolBinario{
             return "";
         }
         else{
-            this.preOrderArrayAuxiliar = null;
             for(let i= this.preOrderArray.length-1;i>=0;i--){
                 if(this.preOrderArray[i].match(limite)){
                     auxiliar.push(this.preOrderArray.pop())
-                    console.log("Array auxiliar: "+auxiliar);
                     
                     
                 }
                 else{
                     
                     operandoIzquierdo = auxiliar.pop();
-                    console.log(operandoIzquierdo);
                     operador = this.preOrderArray[i];
-                    console.log(operador);
                     this.preOrderArray.pop()
                     operandoDerecho = auxiliar.pop();
-                    console.log(operandoDerecho);
                     if(operador==="*"){
                         resultado = Number(operandoIzquierdo) * Number(operandoDerecho);
-                        console.log(resultado);
+                        
                         auxiliar.push(resultado);
                     }
                     if(operador==="/"){
                         resultado = Number(operandoIzquierdo) / Number(operandoDerecho);
-                        console.log(resultado);
+                        
                         auxiliar.push(resultado);
                     }
                     if(operador==="+"){
                         resultado = Number(operandoIzquierdo) + Number(operandoDerecho);
-                        console.log(resultado);
+                        
                         auxiliar.push(resultado);
                     }
                     if(operador==="-"){
                         resultado = Number(operandoIzquierdo) - Number(operandoDerecho);
-                        console.log(resultado);
+                        
                         auxiliar.push(resultado);
                     }
                     
                 }
             }
-            console.log(resultado);
+            
             return resultado;
         }
     }
     resolverPostOrder(){
-        this.postOrderArray;
-        this.postOrderArrayAuxiliar
+        let resultado = 0;
+        let operandoDerecho = "";
+        let operandoIzquierdo = "";
+        let operador = "";
+        let limite = /^[0-9]+$/;
+        let auxiliar = [];
+        let auxVektor;
+        let j = 0;
+        if(this.postOrderArray==null){
+            return "";
+        }
+        else{
+            for(let i=0;i<=this.postOrderArray.length-1;i++)
+                if(this.postOrderArray[0].match(limite)){
+                    auxiliar.push(this.postOrderArray[0]);
+                    for(let j=0; j<=this.postOrderArray.length-1;j++ ){
+                        this.postOrderArray[j]= this.postOrderArray[j+1];
+                    }
+                    this.postOrderArray[this.postOrderArray.length-1]=null;
+                }
+                else{
+                    
+                    operandoIzquierdo = auxiliar.pop()
+                    operador = this.postOrderArray[0];
+                    for(let j=0; j<=this.postOrderArray.length-1;j++ ){
+                        this.postOrderArray[j]= this.postOrderArray[j+1];
+                    }
+                    this.postOrderArray[this.postOrderArray.length-1]=null;
+                    operandoDerecho = auxiliar.pop()
+                    if(operador==="*"){
+                        operandoDerecho = Number(operandoDerecho) * Number(operandoIzquierdo);
+                        auxiliar.push(operandoDerecho);
+                    }
+                    if(operador==="/"){
+                        operandoDerecho = Number(operandoDerecho) / Number(operandoIzquierdo);
+                        auxiliar.push(operandoDerecho);
+                    }
+                    if(operador==="+"){
+                        operandoDerecho = Number(operandoDerecho) + Number(operandoIzquierdo);
+                        auxiliar.push(operandoDerecho);
+                    }
+                    if(operador==="-"){
+                        operandoDerecho = Number(operandoDerecho) - Number(operandoIzquierdo);
+                        auxiliar.push(operandoDerecho);
+                    }
+                    
+                }
+            }
+            
+            return operandoDerecho;
+        }
         
-    }
     listar(){
         let res=""
         let aux = this.primero;
@@ -347,11 +390,12 @@ console.log(expresion.generarArbol());
 console.log("PreOrder: ");
 expresion.preOrder();
 console.log(expresion.preOrderArray);
-console.log(expresion.resolverPreOrder());
+console.log("El resultado de resolver el pre order es: "+expresion.resolverPreOrder());
 
 console.log("PostOrder: ")
 expresion.postOrder();
 console.log(expresion.postOrderArray);
+console.log("El resultado de resolver el post order es: "+expresion.resolverPostOrder());
 
 
 
